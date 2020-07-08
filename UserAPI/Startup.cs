@@ -72,6 +72,7 @@ namespace UserAPI
             });
 
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IEmpleadosRepo, EmpleadoRepo>();
        
 
             services.AddControllers();

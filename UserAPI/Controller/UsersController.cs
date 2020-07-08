@@ -37,7 +37,7 @@ namespace UserAPI.Controller
         }
 
 
-        [Authorize(Roles = "Admin , NotAdmin")]
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAuthors()
         {

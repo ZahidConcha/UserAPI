@@ -18,10 +18,40 @@ namespace UserAPI.Services
             Context = context;
         }
 
+        public Task<bool> Create(IdentityUser entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> Delete(IdentityUser entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> Exsists(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IList<IdentityUser>> FindAll()
         {
-            var user = await Context.Users.ToListAsync();
-            return user;
+            var users = await Context.Users.ToListAsync();
+            return users;
+        }
+
+        public Task<IdentityUser> FindById(int Id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> Update(IdentityUser entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

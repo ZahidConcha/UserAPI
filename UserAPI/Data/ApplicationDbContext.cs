@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using UserAPI.Modals;
 
 namespace UserAPI.Data
 {
@@ -12,5 +13,8 @@ namespace UserAPI.Data
             : base(options)
         {
         }
+
+
+        public DbSet<Empleado> TEmpleados { get; set; }
     }
 }
