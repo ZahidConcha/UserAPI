@@ -35,7 +35,7 @@ namespace UserAPI.Controller
         /// Gets all the workers Information
         /// </summary>
         /// <returns>List of Workers</returns>
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]

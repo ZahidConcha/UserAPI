@@ -25,7 +25,7 @@ namespace UserAPI.Data
                 var result = await userManeger.CreateAsync(user, "P@ssword1");
                 if (result.Succeeded)
                 {
-                    await userManeger.AddToRoleAsync(user, "Admin");
+                    await userManeger.AddToRoleAsync(user, "Administrator");
                 }
             }
 
@@ -40,7 +40,7 @@ namespace UserAPI.Data
                 var result = await userManeger.CreateAsync(user, "P@ssword1");
                 if (result.Succeeded)
                 {
-                    await userManeger.AddToRoleAsync(user, "NotAdmin");
+                    await userManeger.AddToRoleAsync(user, "NotAdministrator");
                 }
             }
 
@@ -48,7 +48,7 @@ namespace UserAPI.Data
         }
         private async static Task SeedRoles(RoleManager<IdentityRole> roleManeger)
         {
-            if (!await roleManeger.RoleExistsAsync("Admin"))
+            if (!await roleManeger.RoleExistsAsync("Administrator"))
             {
                 var role = new IdentityRole
                 {
@@ -57,7 +57,7 @@ namespace UserAPI.Data
                 await roleManeger.CreateAsync(role);
             }
 
-            if (!await roleManeger.RoleExistsAsync("NotAdmin"))
+            if (!await roleManeger.RoleExistsAsync("NotAdministrator"))
             {
                 var role = new IdentityRole
                 {
