@@ -39,22 +39,16 @@
             <param name="id">Recives a id</param>
             <returns> 202 no content</returns>
         </member>
-        <member name="M:UserAPI.Controller.UsersController.GetAuthors">
+        <member name="M:BookStore_API.Controllers.UsersController.Register(UserAPI.DTOs.UserDTO)">
             <summary>
-            Gets all the users does not have Dto so it returns all the info of every user
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:UserAPI.Controller.UsersController.Login(UserAPI.DTOs.UserDTO)">
-            <summary>
-            Posts a token for a user that exists an can authenticate its self
+            
             </summary>
             <param name="userDTO"></param>
             <returns></returns>
         </member>
-        <member name="M:UserAPI.Controller.UsersController.Register(UserAPI.DTOs.UserDTO)">
+        <member name="M:BookStore_API.Controllers.UsersController.Login(UserAPI.DTOs.UserDTO)">
             <summary>
-            creates a new user
+            User Login Endpoint! 
             </summary>
             <param name="userDTO"></param>
             <returns></returns>

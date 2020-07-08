@@ -92,7 +92,7 @@ namespace UserAPI
                 c.IncludeXmlComments(xmlPath);
             });
 
-
+            services.AddSingleton<ILoggerService, LoggerService>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IEmpleadosRepo, EmpleadoRepo>();
        
