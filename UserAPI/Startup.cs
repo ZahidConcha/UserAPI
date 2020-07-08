@@ -20,6 +20,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using UserAPI.Contracts;
 using UserAPI.Services;
+using AutoMapper;
+using UserAPI.Mappings;
 
 namespace UserAPI
 {
@@ -67,9 +69,29 @@ namespace UserAPI
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
 
                 };
-
-
             });
+
+
+            services.AddAutoMapper(typeof(Maps));
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Test API",
+                    Description = "Lets test what I know",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Zahid Concha Alvarez",
+                        Email = string.Empty,
+                    },
+                });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
+
 
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IEmpleadosRepo, EmpleadoRepo>();
@@ -93,6 +115,14 @@ namespace UserAPI
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Test API");
+                c.RoutePrefix = "";
+            });
 
             app.UseCors("CorsPolicy");
 

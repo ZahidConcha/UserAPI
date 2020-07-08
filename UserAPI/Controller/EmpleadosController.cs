@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UserAPI.Contracts;
+using UserAPI.DTOs;
 using UserAPI.Modals;
 
 namespace UserAPI.Controller
@@ -14,16 +16,21 @@ namespace UserAPI.Controller
     public class EmpleadosController : ControllerBase
     {
         private readonly IEmpleadosRepo empleadosRepo;
+        private readonly IMapper mapper;
 
-        public EmpleadosController(IEmpleadosRepo empleadosRepo)
+        public EmpleadosController(IEmpleadosRepo empleadosRepo,IMapper mapper)
         {
             this.empleadosRepo = empleadosRepo;
+            this.mapper = mapper;
         }
 
 
 
 
-
+        /// <summary>
+        /// Gets all the workers Information
+        /// </summary>
+        /// <returns>List of Workers</returns>
         [HttpGet]
         public async Task<IActionResult> GetEmpleados()
         {
@@ -35,6 +42,12 @@ namespace UserAPI.Controller
             return Ok(empleados);
         }
 
+
+        /// <summary>
+        /// Gets a worker by it id
+        /// </summary>
+        /// <param name="id"> Worker Id</param>
+        /// <returns>Information of the worker with the same Id</returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -46,9 +59,13 @@ namespace UserAPI.Controller
             return Ok(empleado);
         }
 
-
+        /// <summary>
+        /// Creates New Worker 
+        /// </summary>
+        /// <param name="empleado">Model worker with its properties!</param>
+        /// <returns>Created Code</returns>
         [HttpPost]
-        public async Task<IActionResult> CreateEmpleado([FromBody] Empleado empleado)
+        public async Task<IActionResult> CreateEmpleado([FromBody] EmpleadosDTO empleado)
         {
             if (empleado == null)
             {
@@ -58,15 +75,21 @@ namespace UserAPI.Controller
             {
                 return BadRequest(empleado);
             }
-            var isSuccess = await empleadosRepo.Create(empleado);
+            var empleadoInfo = mapper.Map<Empleado>(empleado);
+            var isSuccess = await empleadosRepo.Create(empleadoInfo);
             if (!isSuccess)
             {
                 return Conflict();
             }
-            return Created("Created", new { empleado });
+            return Created("Created", new { empleadoInfo });
         }
 
-
+        /// <summary>
+        /// Updates an existing user! 
+        /// </summary>
+        /// <param name="id">Takes a user id as a param to search for a user id in the database</param>
+        /// <param name="empleado">information o one user with a match on the given id</param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> UpDate(int id, [FromBody] Empleado empleado)
         {
@@ -87,7 +110,11 @@ namespace UserAPI.Controller
             return NoContent();
         }
 
-
+        /// <summary>
+        /// Deletes a user bye its id
+        /// </summary>
+        /// <param name="id">Recives a id</param>
+        /// <returns> 202 no content</returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

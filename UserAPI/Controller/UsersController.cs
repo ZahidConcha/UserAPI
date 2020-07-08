@@ -36,7 +36,10 @@ namespace UserAPI.Controller
             this.userRepository = userRepository;
         }
 
-
+        /// <summary>
+        /// Gets all the users does not have Dto so it returns all the info of every user
+        /// </summary>
+        /// <returns></returns>
         [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAuthors()
@@ -51,7 +54,11 @@ namespace UserAPI.Controller
 
 
 
-       
+       /// <summary>
+       /// Posts a token for a user that exists an can authenticate its self
+       /// </summary>
+       /// <param name="userDTO"></param>
+       /// <returns></returns>
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] UserDTO userDTO)
@@ -71,7 +78,11 @@ namespace UserAPI.Controller
 
 
 
-        
+        /// <summary>
+        /// creates a new user
+        /// </summary>
+        /// <param name="userDTO"></param>
+        /// <returns></returns>
         [Route("register")]
         [Authorize (Roles ="Admin")]
         [HttpPost]

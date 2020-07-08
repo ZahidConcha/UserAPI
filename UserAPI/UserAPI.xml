@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>UserAPI</name>
+    </assembly>
+    <members>
+        <member name="M:UserAPI.Controller.EmpleadosController.GetEmpleados">
+            <summary>
+            Gets all the workers Information
+            </summary>
+            <returns>List of Workers</returns>
+        </member>
+        <member name="M:UserAPI.Controller.EmpleadosController.GetById(System.Int32)">
+            <summary>
+            Gets a worker by it id
+            </summary>
+            <param name="id"> Worker Id</param>
+            <returns>Information of the worker with the same Id</returns>
+        </member>
+        <member name="M:UserAPI.Controller.EmpleadosController.CreateEmpleado(UserAPI.DTOs.EmpleadosDTO)">
+            <summary>
+            Creates New Worker 
+            </summary>
+            <param name="empleado">Model worker with its properties!</param>
+            <returns>Created Code</returns>
+        </member>
+        <member name="M:UserAPI.Controller.EmpleadosController.UpDate(System.Int32,UserAPI.Modals.Empleado)">
+            <summary>
+            Updates an existing user! 
+            </summary>
+            <param name="id">Takes a user id as a param to search for a user id in the database</param>
+            <param name="empleado">information o one user with a match on the given id</param>
+            <returns></returns>
+        </member>
+        <member name="M:UserAPI.Controller.EmpleadosController.Delete(System.Int32)">
+            <summary>
+            Deletes a user bye its id
+            </summary>
+            <param name="id">Recives a id</param>
+            <returns> 202 no content</returns>
+        </member>
+        <member name="M:UserAPI.Controller.UsersController.GetAuthors">
+            <summary>
+            Gets all the users does not have Dto so it returns all the info of every user
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UserAPI.Controller.UsersController.Login(UserAPI.DTOs.UserDTO)">
+            <summary>
+            Posts a token for a user that exists an can authenticate its self
+            </summary>
+            <param name="userDTO"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UserAPI.Controller.UsersController.Register(UserAPI.DTOs.UserDTO)">
+            <summary>
+            creates a new user
+            </summary>
+            <param name="userDTO"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
