@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using NLog;
 using UserAPI.Contracts;
 using UserAPI.DTOs;
 using UserAPI.Modals;
@@ -15,22 +13,18 @@ namespace UserAPI.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EmpleadosController : ControllerBase
+    public class PuestosController : ControllerBase
     {
-        private readonly IEmpleadosRepo empleadosRepo;
         private readonly IMapper mapper;
+        private readonly IPuestoRepo puestoRepo;
         private readonly ILoggerService logger;
 
-        public EmpleadosController(IEmpleadosRepo empleadosRepo,IMapper mapper, ILoggerService logger)
+        public PuestosController(IMapper mapper, IPuestoRepo puestoRepo, ILoggerService logger)
         {
-            this.empleadosRepo = empleadosRepo;
             this.mapper = mapper;
+            this.puestoRepo = puestoRepo;
             this.logger = logger;
         }
-
-
-
-
         /// <summary>
         /// Gets all the workers Information
         /// </summary>
@@ -38,26 +32,26 @@ namespace UserAPI.Controller
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetEmpleados()
+        public async Task<IActionResult> Getpuestos()
         {
             var location = GetControllerActionNames();
             try
             {
                 logger.LogInfo($"{location} Attempted Get Request");
-                var empleados = await empleadosRepo.FindAll();
-                if (empleados == null)
+                var puestos = await puestoRepo.FindAll();
+                if (puestos == null)
                 {
                     logger.LogWarn($"{location} Faild to Get Data");
                     return NotFound();
                 }
                 logger.LogInfo($"{location}: Attempet Call Succesful");
-                return Ok(empleados);
+                return Ok(puestos);
             }
             catch (Exception e)
             {
                 return internalError($"{location}:{e.Message}-{e.InnerException}");
             }
-           
+
         }
 
 
@@ -75,84 +69,84 @@ namespace UserAPI.Controller
             try
             {
                 logger.LogInfo($"{location} Attempted Get by Id Request Id:{id}");
-                var empleado = await empleadosRepo.FindById(id);
-                if (empleado == null)
+                var puesto = await puestoRepo.FindById(id);
+                if (puesto == null)
                 {
                     logger.LogWarn($"{location} Faild to Find Id{id}");
                     return NotFound();
                 }
                 logger.LogInfo($"{location}: Attempet Call Succesful");
-                return Ok(empleado);
+                return Ok(puesto);
             }
-             
+
             catch (Exception e)
             {
                 return internalError($"{location}:{e.Message}-{e.InnerException}");
             }
-           
+
         }
 
         /// <summary>
         /// Creates New Worker 
         /// </summary>
-        /// <param name="empleado">Model worker with its properties!</param>
+        /// <param name="puesto">Model worker with its properties!</param>
         /// <returns>Created Code</returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> CreateEmpleado([FromBody] EmpleadosDTO empleado)
+        public async Task<IActionResult> Createpuesto([FromBody] PuestosDTO puesto)
         {
             var location = GetControllerActionNames();
             try
             {
                 logger.LogInfo($"{location} Attempted Post Request (Create)");
-                if (empleado == null)
+                if (puesto == null)
                 {
                     logger.LogWarn($"{location} Missing Data");
-                    return BadRequest(empleado);
+                    return BadRequest(puesto);
                 }
                 if (!ModelState.IsValid)
                 {
                     logger.LogWarn($"{location} Data invalid");
-                    return BadRequest(empleado);
+                    return BadRequest(puesto);
                 }
-                var empleadoInfo = mapper.Map<Empleado>(empleado);
-                var isSuccess = await empleadosRepo.Create(empleadoInfo);
+                var puestoInfo = mapper.Map<Puestos>(puesto);
+                var isSuccess = await puestoRepo.Create(puestoInfo);
                 if (!isSuccess)
                 {
                     logger.LogError($"{location} Something went wrong while creating");
                     return Conflict();
                 }
                 logger.LogInfo($"{location} Create Attempt Succesful");
-                return Created("Created", new { empleadoInfo });
+                return Created("Created", new { puestoInfo });
             }
             catch (Exception e)
             {
                 return internalError($"{location}:{e.Message}-{e.InnerException}");
             }
-          
+
         }
 
         /// <summary>
         /// Updates an existing user! 
         /// </summary>
         /// <param name="id">Takes a user id as a param to search for a user id in the database</param>
-        /// <param name="empleado">information o one user with a match on the given id</param>
+        /// <param name="puesto">information o one user with a match on the given id</param>
         /// <returns></returns>
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> UpDate(int id, [FromBody] Empleado empleado)
+        public async Task<IActionResult> UpDate(int id, [FromBody] PuestosDTO puesto)
         {
             var location = GetControllerActionNames();
             try
             {
                 logger.LogInfo($"{location} Update Attempt");
-                if (id < 1 || empleado == null || id != empleado.Id)
+                if (id < 1 || puesto == null || id != puesto.Id)
                 {
                     logger.LogWarn($"{location} Faild to Find or Invalid Id{id}");
                     return BadRequest();
@@ -163,7 +157,8 @@ namespace UserAPI.Controller
                     return BadRequest(ModelState);
                 }
                 logger.LogInfo($"{location} Found Id{id}");
-                var isSuccess = await empleadosRepo.Update(empleado);
+                var puestoInfo = mapper.Map<Puestos>(puesto);
+                var isSuccess = await puestoRepo.Update(puestoInfo);
                 if (!isSuccess)
                 {
                     logger.LogWarn($"{location} Something went wrong while Updating");
@@ -201,15 +196,15 @@ namespace UserAPI.Controller
                     logger.LogWarn($"{location} Ivalid Id {id}");
                     return BadRequest();
                 }
-                var empleado = await empleadosRepo.Exsists(id);
-                if (!empleado)
+                var puesto = await puestoRepo.Exsists(id);
+                if (!puesto)
                 {
                     logger.LogWarn($"{location} Faild to find User Id {id}");
                     return NotFound();
                 }
 
-                var delEmpleado = await empleadosRepo.FindById(id);
-                var isSuccess = await empleadosRepo.Delete(delEmpleado);
+                var delpuesto = await puestoRepo.FindById(id);
+                var isSuccess = await puestoRepo.Delete(delpuesto);
                 if (!isSuccess)
                 {
                     logger.LogError($"{location}  Something went wrong while Deleting");
@@ -241,3 +236,4 @@ namespace UserAPI.Controller
         }
     }
 }
+

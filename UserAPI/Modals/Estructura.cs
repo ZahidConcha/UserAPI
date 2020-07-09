@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using UserAPI.Modals;
 
-namespace UserAPI.Contracts
+namespace UserAPI.Modals
 {
-    public interface IEmpleadosRepo:IRepoBase<Empleado>
+    public class Estructura
     {
-
     }
 }

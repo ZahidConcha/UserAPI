@@ -6,8 +6,7 @@ using UserAPI.Modals;
 
 namespace UserAPI.Contracts
 {
-    public interface IEmpleadosRepo:IRepoBase<Empleado>
+    public interface IPuestoRepo : IRepoBase<Puestos>
     {
-
     }
 }

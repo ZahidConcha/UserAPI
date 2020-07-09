@@ -11,12 +11,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Migrations\20200709185432_Puestos.cs" />
+    <Compile Remove="Data\Migrations\20200709185432_Puestos.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200709191840_Puestos.cs" />
+    <Compile Remove="Data\Migrations\20200709191840_Puestos.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200709192746_puesto-Departamento.cs" />
+    <Compile Remove="Data\Migrations\20200709192746_puesto-Departamento.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200709211658_Sitios.cs" />
+    <Compile Remove="Data\Migrations\20200709211658_Sitios.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200709212509_Sitios.cs" />
+    <Compile Remove="Data\Migrations\20200709212509_Sitios.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200709215252_sitios-Departamentos-Relacion.cs" />
+    <Compile Remove="Data\Migrations\20200709215252_sitios-Departamentos-Relacion.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.5" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.5" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.5" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.1.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.5" />
     <PackageReference Include="NLog.Extensions.Logging" Version="1.6.4" />

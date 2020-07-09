@@ -46,6 +46,7 @@ namespace UserAPI.Controller
         /// <returns></returns>
 
         [HttpGet]
+        [Authorize (Roles = "Administrator")]
         public async Task<IActionResult> Get()
         {
             var location = GetControllerActionNames();
@@ -75,8 +76,9 @@ namespace UserAPI.Controller
         /// </summary>
         /// <param name="userDTO"></param>
         /// <returns></returns>
-        [AllowAnonymous]
+        [Route("login")]
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] UserDTO userDTO)
         {
             var location = GetControllerActionNames();
@@ -92,7 +94,7 @@ namespace UserAPI.Controller
                 {
                     logger.LogInfo($"{location}:Succesfully Authenticated {userName}");
                     var user = await userManager.FindByNameAsync(userName);
-                    var tokenString = await GenereteJSONToken(user);
+                    var tokenString = await GenorateJWT(user);
                     return Ok(new { token = tokenString });
                 }
                 logger.LogInfo($"{location}:Not Authenticated {userName}");
@@ -149,7 +151,7 @@ namespace UserAPI.Controller
 
         }
 
-        private async Task<string> GenereteJSONToken(IdentityUser user)
+        private async Task<string> GenorateJWT(IdentityUser user)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -162,7 +164,7 @@ namespace UserAPI.Controller
             var roles = await userManager.GetRolesAsync(user);
             claims.AddRange(roles.Select(r => new Claim(ClaimsIdentity.DefaultRoleClaimType, r)));
 
-            var token = new JwtSecurityToken(config["Jwt:Issuer"], config["Jwt:Issuer"], claims, null, expires: DateTime.Now.AddMinutes(30), signingCredentials: credentials);
+            var token = new JwtSecurityToken(config["Jwt:Issuer"], config["Jwt:Issuer"], claims, null, expires: DateTime.Now.AddMinutes(5), signingCredentials: credentials);
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 

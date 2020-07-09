@@ -13,6 +13,9 @@ namespace UserAPI.Mappings
         public Maps()
         {
             CreateMap<Empleado, EmpleadosDTO>().ReverseMap();
+            CreateMap<Departamentos,DepartamentosDTO>().ReverseMap();
+            CreateMap<Puestos, PuestosDTO>().ReverseMap();
+            CreateMap<Sitios, SitiosDTO>().ReverseMap();
         }
     }
 }

@@ -4,6 +4,41 @@
         <name>UserAPI</name>
     </assembly>
     <members>
+        <member name="M:UserAPI.Controller.DepartamentosController.GetDepartamentos">
+            <summary>
+            Gets all the workstations Information
+            </summary>
+            <returns>List of Workers</returns>
+        </member>
+        <member name="M:UserAPI.Controller.DepartamentosController.GetById(System.Int32)">
+            <summary>
+            Gets a workstation by id
+            </summary>
+            <param name="id"> Worker Id</param>
+            <returns>Information of the worker with the same Id</returns>
+        </member>
+        <member name="M:UserAPI.Controller.DepartamentosController.Createpuesto(UserAPI.DTOs.DepartamentosDTO)">
+            <summary>
+            Creates New workstation
+            </summary>
+            <param name="departamento">Model worker with its properties!</param>
+            <returns>Created Code</returns>
+        </member>
+        <member name="M:UserAPI.Controller.DepartamentosController.UpDate(System.Int32,UserAPI.DTOs.DepartamentosDTO)">
+            <summary>
+            Updates an existing WorkStation! 
+            </summary>
+            <param name="id">Takes a user id as a param to search for a user id in the database</param>
+            <param name="departamentos">information o one user with a match on the given id</param>
+            <returns></returns>
+        </member>
+        <member name="M:UserAPI.Controller.DepartamentosController.Delete(System.Int32)">
+            <summary>
+            Deletes a Workstation bye its id
+            </summary>
+            <param name="id">Recives a id</param>
+            <returns> 202 no content</returns>
+        </member>
         <member name="M:UserAPI.Controller.EmpleadosController.GetEmpleados">
             <summary>
             Gets all the workers Information
@@ -39,16 +74,57 @@
             <param name="id">Recives a id</param>
             <returns> 202 no content</returns>
         </member>
-        <member name="M:BookStore_API.Controllers.UsersController.Register(UserAPI.DTOs.UserDTO)">
+        <member name="M:UserAPI.Controller.PuestosController.Getpuestos">
             <summary>
-            
+            Gets all the workers Information
+            </summary>
+            <returns>List of Workers</returns>
+        </member>
+        <member name="M:UserAPI.Controller.PuestosController.GetById(System.Int32)">
+            <summary>
+            Gets a worker by it id
+            </summary>
+            <param name="id"> Worker Id</param>
+            <returns>Information of the worker with the same Id</returns>
+        </member>
+        <member name="M:UserAPI.Controller.PuestosController.Createpuesto(UserAPI.DTOs.PuestosDTO)">
+            <summary>
+            Creates New Worker 
+            </summary>
+            <param name="puesto">Model worker with its properties!</param>
+            <returns>Created Code</returns>
+        </member>
+        <member name="M:UserAPI.Controller.PuestosController.UpDate(System.Int32,UserAPI.DTOs.PuestosDTO)">
+            <summary>
+            Updates an existing user! 
+            </summary>
+            <param name="id">Takes a user id as a param to search for a user id in the database</param>
+            <param name="puesto">information o one user with a match on the given id</param>
+            <returns></returns>
+        </member>
+        <member name="M:UserAPI.Controller.PuestosController.Delete(System.Int32)">
+            <summary>
+            Deletes a user bye its id
+            </summary>
+            <param name="id">Recives a id</param>
+            <returns> 202 no content</returns>
+        </member>
+        <member name="M:UserAPI.Controller.UsersController.Get">
+            <summary>
+            Gets all the users does not have Dto so it returns all the info of every user
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UserAPI.Controller.UsersController.Login(UserAPI.DTOs.UserDTO)">
+            <summary>
+            Posts a token for a user that exists an can authenticate its self
             </summary>
             <param name="userDTO"></param>
             <returns></returns>
         </member>
-        <member name="M:BookStore_API.Controllers.UsersController.Login(UserAPI.DTOs.UserDTO)">
+        <member name="M:UserAPI.Controller.UsersController.Register(UserAPI.DTOs.UserDTO)">
             <summary>
-            User Login Endpoint! 
+            creates a new user
             </summary>
             <param name="userDTO"></param>
             <returns></returns>
