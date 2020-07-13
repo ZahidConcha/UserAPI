@@ -219,7 +219,7 @@ namespace UserAPI.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("UserAPI.Modals.Departamentos", b =>
+            modelBuilder.Entity("UserAPI.Modals.Departamento", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -232,9 +232,14 @@ namespace UserAPI.Data.Migrations
                     b.Property<string>("Nombre")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("SitioId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Departamentos");
+                    b.HasIndex("SitioId");
+
+                    b.ToTable("TDepartamentos");
                 });
 
             modelBuilder.Entity("UserAPI.Modals.Empleado", b =>
@@ -243,9 +248,6 @@ namespace UserAPI.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NombreCompleto")
                         .HasColumnType("nvarchar(max)");
@@ -258,7 +260,19 @@ namespace UserAPI.Data.Migrations
                     b.ToTable("TEmpleados");
                 });
 
-            modelBuilder.Entity("UserAPI.Modals.Puestos", b =>
+            modelBuilder.Entity("UserAPI.Modals.Estructura", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TEstructura");
+                });
+
+            modelBuilder.Entity("UserAPI.Modals.Puesto", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -268,6 +282,9 @@ namespace UserAPI.Data.Migrations
                     b.Property<string>("Clave")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("DepartamentoId")
+                        .HasColumnType("int");
+
                     b.Property<int>("DepartamentosId")
                         .HasColumnType("int");
 
@@ -276,7 +293,7 @@ namespace UserAPI.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DepartamentosId");
+                    b.HasIndex("DepartamentoId");
 
                     b.ToTable("TPuestos");
                 });
@@ -350,13 +367,20 @@ namespace UserAPI.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("UserAPI.Modals.Puestos", b =>
+            modelBuilder.Entity("UserAPI.Modals.Departamento", b =>
                 {
-                    b.HasOne("UserAPI.Modals.Departamentos", "Departamentos")
-                        .WithMany("ListPuesto")
-                        .HasForeignKey("DepartamentosId")
+                    b.HasOne("UserAPI.Modals.Sitios", "Sitios")
+                        .WithMany("ListDepartamentos")
+                        .HasForeignKey("SitioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("UserAPI.Modals.Puesto", b =>
+                {
+                    b.HasOne("UserAPI.Modals.Departamento", null)
+                        .WithMany("ListPuesto")
+                        .HasForeignKey("DepartamentoId");
                 });
 #pragma warning restore 612, 618
         }

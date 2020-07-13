@@ -32,6 +32,7 @@ namespace UserAPI.Services
 
         public async Task<bool> Exsists(int id)
         {
+            
             return await context.TEmpleados.AnyAsync(c => c.Id == id);
         }
 
@@ -41,9 +42,10 @@ namespace UserAPI.Services
             return empleados;
         }
 
-        public async Task<Empleado> FindById(int Id)
+        public async Task<Empleado> FindById(int id)
         {
-            var empleado = await context.TEmpleados.FirstAsync(c => c.Id == Id);
+         
+            var empleado = await context.TEmpleados.FirstAsync(c => c.Id == id);
             return empleado;
         }
 

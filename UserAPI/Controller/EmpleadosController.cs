@@ -152,6 +152,7 @@ namespace UserAPI.Controller
             try
             {
                 logger.LogInfo($"{location} Update Attempt");
+               
                 if (id < 1 || empleado == null || id != empleado.Id)
                 {
                     logger.LogWarn($"{location} Faild to Find or Invalid Id{id}");

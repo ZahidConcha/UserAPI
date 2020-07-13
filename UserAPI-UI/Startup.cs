@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Syncfusion.Blazor;
 using UserAPI_UI.Contractas;
+using UserAPI_UI.Pages;
 using UserAPI_UI.Services;
 
 namespace UserAPI_UI
@@ -33,6 +34,7 @@ namespace UserAPI_UI
             services.AddServerSideBlazor();
             services.AddHttpClient();
             services.AddTransient<IEmpleadoRepo, EmpleadoRepo>();
+            services.AddTransient<IPuestoRepo, PuestoRepo>(); 
 
         }
 

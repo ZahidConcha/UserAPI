@@ -17,7 +17,7 @@
             <param name="id"> Worker Id</param>
             <returns>Information of the worker with the same Id</returns>
         </member>
-        <member name="M:UserAPI.Controller.DepartamentosController.Createpuesto(UserAPI.DTOs.DepartamentosDTO)">
+        <member name="M:UserAPI.Controller.DepartamentosController.Createpuesto(UserAPI.DTOs.DepartamentosCreateDTO)">
             <summary>
             Creates New workstation
             </summary>
@@ -87,7 +87,7 @@
             <param name="id"> Worker Id</param>
             <returns>Information of the worker with the same Id</returns>
         </member>
-        <member name="M:UserAPI.Controller.PuestosController.Createpuesto(UserAPI.DTOs.PuestosDTO)">
+        <member name="M:UserAPI.Controller.PuestosController.Createpuesto(UserAPI.DTOs.PuestoCreateDTO)">
             <summary>
             Creates New Worker 
             </summary>

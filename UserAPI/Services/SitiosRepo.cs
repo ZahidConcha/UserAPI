@@ -35,13 +35,13 @@ namespace UserAPI.Services
 
         public async Task<IList<Sitios>> FindAll()
         {
-            var Sitioss = await context.TSitios.ToListAsync();
+            var Sitioss = await context.TSitios.Include(c=>c.ListDepartamentos).ToListAsync();
             return Sitioss;
         }
 
         public async Task<Sitios> FindById(int Id)
         {
-            var Sitios = await context.TSitios.FirstOrDefaultAsync(c => c.Id == Id);
+            var Sitios = await context.TSitios.Include(q=>q.ListDepartamentos).FirstOrDefaultAsync(c => c.Id == Id);
             return Sitios;
         }
 

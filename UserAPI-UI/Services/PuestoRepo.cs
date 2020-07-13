@@ -5,11 +5,11 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using UserAPI_UI.Contractas;
-using UserAPI_UI.Pages;
+using UserAPI_UI.ViewModels;
 
 namespace UserAPI_UI.Services
 {
-    public class PuestoRepo : BaseRepo<Puesto>
+    public class PuestoRepo : BaseRepo<Puestos>, IPuestoRepo
     {
         private readonly IHttpClientFactory client;
 

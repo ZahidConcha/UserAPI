@@ -13,4 +13,14 @@ namespace UserAPI.DTOs
         public int DepartamentosId { get; set; }
        
     }
+
+    public class PuestoCreateDTO
+    {
+       
+        public string Nombre { get; set; }
+        public string Clave { get; set; }
+        public int DepartamentosId { get; set; }
+    }
+
+   
 }

@@ -77,7 +77,7 @@ namespace UserAPI.Controller
 
      
         [HttpPost]
-        public async Task<IActionResult> Createpuesto([FromBody]SitiosDTO sitio)
+        public async Task<IActionResult> Createpuesto([FromBody]SitiosCreateDTO sitio)
         {
             var location = GetLocation();
             try

@@ -7,5 +7,6 @@ namespace UserAPI.Modals
 {
     public class Estructura
     {
+        public int Id { get; set; }
     }
 }

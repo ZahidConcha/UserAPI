@@ -19,9 +19,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using UserAPI.Contracts;
-using UserAPI.Services;
+
 using AutoMapper;
 using UserAPI.Mappings;
+using UserAPI.Services;
 
 namespace UserAPI
 {
@@ -135,7 +136,7 @@ namespace UserAPI
 
             app.UseCors("CorsPolicy");
 
-            SeededData.Seed(userManager, roleManager).Wait();
+            //SeededData.Seed(userManager, roleManager).Wait();
 
             app.UseHttpsRedirection();
           

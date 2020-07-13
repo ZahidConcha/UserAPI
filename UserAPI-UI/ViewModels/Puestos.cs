@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace UserAPI_UI.ViewModels
 {
-    public class Puesto
+    public class Puestos
     {
         public int  Id { get; set; }
         public string Nombre { get; set; }

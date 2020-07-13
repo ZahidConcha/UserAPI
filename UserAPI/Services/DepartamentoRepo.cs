@@ -17,13 +17,13 @@ namespace UserAPI.Services
         {
             this.context = context;
         }
-        public async Task<bool> Create(Departamentos entity)
+        public async Task<bool> Create(Departamento entity)
         {
             await context.TDepartamentos.AddAsync(entity);
             return await Save();
         }
 
-        public async Task<bool> Delete(Departamentos entity)
+        public async Task<bool> Delete(Departamento entity)
         {
             context.TDepartamentos.Remove(entity);
             return await Save();
@@ -34,13 +34,13 @@ namespace UserAPI.Services
             return await context.TDepartamentos.AnyAsync(c => c.Id == id);
         }
 
-        public async Task<IList<Departamentos>> FindAll()
+        public async Task<IList<Departamento>> FindAll()
         {
             var departamentos = await context.TDepartamentos.Include(q => q.ListPuesto).ToListAsync();
             return departamentos;
         }
 
-        public async Task<Departamentos> FindById(int Id)
+        public async Task<Departamento> FindById(int Id)
         {
             var departamento = await context.TDepartamentos.Include(q=>q.ListPuesto).FirstOrDefaultAsync(c => c.Id == Id);
             return departamento;
@@ -52,7 +52,7 @@ namespace UserAPI.Services
             return changes > 0;
         }
 
-        public async Task<bool> Update(Departamentos entity)
+        public async Task<bool> Update(Departamento entity)
         {
             context.TDepartamentos.Update(entity);
             return await Save();

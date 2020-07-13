@@ -96,7 +96,7 @@ namespace UserAPI.Controller
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> Createpuesto([FromBody] DepartamentosDTO departamento)
+        public async Task<IActionResult> Createpuesto([FromBody] DepartamentosCreateDTO departamento)
         {
             var location = GetControllerActionNames();
             try
@@ -112,7 +112,7 @@ namespace UserAPI.Controller
                     logger.LogWarn($"{location} Data invalid");
                     return BadRequest(departamento);
                 }
-                var departamentoInfo = mapper.Map<Departamentos>(departamento);
+                var departamentoInfo = mapper.Map<Departamento>(departamento);
                 var isSuccess = await departamentoRepo.Create(departamentoInfo);
                 if (!isSuccess)
                 {
@@ -157,7 +157,7 @@ namespace UserAPI.Controller
                     return BadRequest(ModelState);
                 }
                 logger.LogInfo($"{location} Found Id{id}");
-                var departamentoInfo = mapper.Map<Departamentos>(departamentos);
+                var departamentoInfo = mapper.Map<Departamento>(departamentos);
                 var isSuccess = await departamentoRepo.Update(departamentoInfo);
                 if (!isSuccess)
                 {
