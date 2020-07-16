@@ -18,13 +18,13 @@ namespace UserAPI.Services
         {
             this.context = context;
         }
-        public async Task<bool> Create(Puesto entity)
+        public async Task<bool> Create(Puestos entity)
         {
             await context.TPuestos.AddAsync(entity);
             return await Save();
         }
 
-        public async Task<bool> Delete(Puesto entity)
+        public async Task<bool> Delete(Puestos entity)
         {
             context.TPuestos.Remove(entity);
             return await Save();
@@ -35,13 +35,13 @@ namespace UserAPI.Services
             return await context.TPuestos.AnyAsync(q => q.Id == id);
         }
 
-        public async Task<IList<Puesto>> FindAll()
+        public async Task<IList<Puestos>> FindAll()
         {
             var puestos = await context.TPuestos.ToListAsync();
             return puestos;
         }
 
-        public async Task<Puesto> FindById(int Id)
+        public async Task<Puestos> FindById(int Id)
         {
             var puesto = await context.TPuestos.FirstOrDefaultAsync(c => c.Id == Id);
             return puesto;
@@ -53,7 +53,7 @@ namespace UserAPI.Services
             return changes > 0;
         }
 
-        public async Task<bool> Update(Puesto entity)
+        public async Task<bool> Update(Puestos entity)
         {
             context.TPuestos.Update(entity);
             return await Save();

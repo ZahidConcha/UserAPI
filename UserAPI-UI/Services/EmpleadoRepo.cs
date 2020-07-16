@@ -8,7 +8,7 @@ using UserAPI_UI.ViewModels;
 
 namespace UserAPI_UI.Services
 {
-    public class EmpleadoRepo : BaseRepo<Empleados>,IEmpleadoRepo
+    public class EmpleadoRepo : BaseRepo<EmpleadosVM>,IEmpleadoRepo
     {
         private readonly IHttpClientFactory client;
 

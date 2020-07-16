@@ -9,7 +9,7 @@ using UserAPI_UI.ViewModels;
 
 namespace UserAPI_UI.Services
 {
-    public class PuestoRepo : BaseRepo<Puestos>, IPuestoRepo
+    public class PuestoRepo : BaseRepo<PuestoVM>,IPuestoRepo
     {
         private readonly IHttpClientFactory client;
 

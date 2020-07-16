@@ -1,0 +1,86 @@
+﻿@page "/"
+@inject IEmpleadoRepo empleadoRepo
+@inject IEstructuraRepo estructurasRepo
+
+
+<SfGrid DataSource="Model" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
+    <GridPageSettings PageSize="5"></GridPageSettings>
+    <GridColumns>
+        <GridTemplates>
+            <DetailTemplate>
+                @{
+                    EmpleadosVM empleados = context as EmpleadosVM;
+                }
+                <SfTab Height="400" HeaderPlacement="HeaderPosition.Top">
+                    <TabItem>
+                        <ChildContent>
+                            <TabHeader Text="Estructura"></TabHeader>
+                        </ChildContent>
+                        <ContentTemplate>
+                            <div class="d-flex justify-content-center align-items-center">
+                                <SfGrid DataSource="estructuras" AllowPaging="true">
+                                    <GridPageSettings PageSize="4"></GridPageSettings>
+                                    
+                                </SfGrid>
+                            </div>
+                        </ContentTemplate>
+                    </TabItem>
+                </SfTab>
+            </DetailTemplate>
+        </GridTemplates>
+
+        <GridColumn Field="@nameof(EmpleadosVM.Id)"
+                    HeaderText="ID"
+                    TextAlign="TextAlign.Center"
+                    Width="120">
+        </GridColumn>
+        <GridColumn Field="@nameof(EmpleadosVM.NombreCompleto)"
+                    HeaderText="Nombre Completo"
+                    TextAlign="TextAlign.Center"
+                    Width="120">
+        </GridColumn>
+        <GridColumn Field="@nameof(EmpleadosVM.Email)"
+                    HeaderText="Correo Electronico"
+                    TextAlign="TextAlign.Center"
+                    Width="120">
+        </GridColumn>
+        <GridColumn Field="@nameof(EmpleadosVM.RFC)"
+                    HeaderText="RFC"
+                    TextAlign="TextAlign.Center"
+                    Width="120">
+        </GridColumn>
+
+
+    </GridColumns>
+</SfGrid>
+
+@code{
+    private IList<EmpleadosVM> Model;
+    //private EmpleadosVM empleados;
+    private IList<EstructuraVM> estructuras ;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        Model = await empleadoRepo.GetAll(EndPoints.EmpleadosEndPoint);
+        estructuras = await estructurasRepo.GetAll(EndPoints.EstrucutraEndPoint);
+
+        //foreach (var empleado in Model)
+        //{
+        //    foreach (var estructura in empleado.EstructurasList)
+        //    {
+        //        InfoEstructura = new EstructuraVM
+        //        {
+        //            Id = estructura.Id,
+        //            Nombre = estructura.Nombre
+        //        };
+        //    }
+        //}
+
+        @*<SfGrid TValue="GetEstrucutraDTO" Query="@(new Query().Where("EmpleadoId","equal",empleados.Id))" AllowPaging="true">
+            <GridPageSettings PageSize="4"></GridPageSettings>
+            <SfDataManager Url="@EndPoints.EstrucutraEndPoint" CrossDomain="true"></SfDataManager>
+        </SfGrid>*@
+
+    }
+}

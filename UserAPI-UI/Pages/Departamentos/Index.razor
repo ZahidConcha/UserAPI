@@ -1,0 +1,33 @@
+﻿@page "/departamentos/"
+@inject IDepartamentoRepo departamentRepo
+
+<SfGrid DataSource="Model" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
+    <GridPageSettings PageSize="5"></GridPageSettings>
+    <GridColumns>
+        <GridColumn Field="@nameof(DepartamentoVM.Id)"
+                    HeaderText="ID"
+                    TextAlign="TextAlign.Center"
+                    Width="120">
+        </GridColumn>
+        <GridColumn Field="@nameof(DepartamentoVM.Nombre)"
+                    HeaderText="Nombre Departamento"
+                    TextAlign="TextAlign.Center"
+                    Width="120">
+        </GridColumn>
+        <GridColumn Field="@nameof(DepartamentoVM.Clave)"
+                    HeaderText="Clave Departamento"
+                    TextAlign="TextAlign.Center"
+                    Width="120">
+        </GridColumn>
+    </GridColumns>
+</SfGrid>
+
+@code {
+    private IList<DepartamentoVM> Model;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Model = await departamentRepo.GetAll(EndPoints.DepartentosEndPoint);
+    }
+}
+

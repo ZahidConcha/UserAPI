@@ -113,10 +113,10 @@ namespace UserAPI.Controller
         /// </summary>
         /// <param name="userDTO"></param>
         /// <returns></returns>
-        [Route("register")]
+        [Route("register/admin")]
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<IActionResult> Register([FromBody] UserDTO userDTO)
+        public async Task<IActionResult> RegisterAdmin([FromBody] UserDTO userDTO)
         {
             var location = GetControllerActionNames();
             try
@@ -126,8 +126,11 @@ namespace UserAPI.Controller
                 {
                     Email = userDTO.EmailAddress,
                     UserName = userDTO.EmailAddress
+                    
                 };
                 var result = await userManager.CreateAsync(user, userDTO.Password);
+                await userManager.AddToRoleAsync(user, "Administrator");
+                
 
                 if (!result.Succeeded)
                 {
@@ -145,10 +148,41 @@ namespace UserAPI.Controller
 
                 throw;
             }
+        }
 
+        [Route("register")]
+        [HttpPost]
+        public async Task<IActionResult> Register([FromBody] UserDTO userDTO)
+        {
+            var location = GetControllerActionNames();
+            try
+            {
+                logger.LogInfo($"{location}Register User Attempt {userDTO.EmailAddress}");
+                var user = new IdentityUser
+                {
+                    Email = userDTO.EmailAddress,
+                    UserName = userDTO.EmailAddress
 
+                };
+                var result = await userManager.CreateAsync(user, userDTO.Password);
+               
 
-
+                if (!result.Succeeded)
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        logger.LogError($"{location}:User Registration Failed {error.Code} - {error.Description}");
+                    }
+                    return internalError(($"{location}:Register Attempt From User {userDTO.EmailAddress}  failed"));
+                }
+                logger.LogInfo($"{location}Register User Attempt Succesfull {userDTO.EmailAddress}");
+                await userManager.AddToRoleAsync(user, "NotAdministrator");
+                return Ok(new { result.Succeeded });
+            }
+            catch (Exception e)
+            {
+            return internalError($"{e.Message}-{e.InnerException}");
+            }
         }
 
         private async Task<string> GenorateJWT(IdentityUser user)

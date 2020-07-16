@@ -6,7 +6,7 @@ using UserAPI_UI.ViewModels;
 
 namespace UserAPI_UI.Contractas
 {
-    public interface IEmpleadoRepo :IBaseRepo<Empleados>
+    public interface IPuestoRepo : IBaseRepo<PuestoVM>
     {
     }
 }

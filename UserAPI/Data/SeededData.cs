@@ -19,10 +19,10 @@ namespace UserAPI.Data
             {
                 var user = new IdentityUser
                 {
-                    UserName = "admin",
+                    UserName = "admin@gmail.com",
                     Email = "admin@gmail.com"
                 };
-                var result = await userManeger.CreateAsync(user, "P@ssword1");
+                var result = await userManeger.CreateAsync(user, "12345678");
                 if (result.Succeeded)
                 {
                     await userManeger.AddToRoleAsync(user, "Administrator");
@@ -34,10 +34,10 @@ namespace UserAPI.Data
             {
                 var user = new IdentityUser
                 {
-                    UserName = "Customer",
+                    UserName = "Customer@gmail.com",
                     Email = "customer@gmail.com"
                 };
-                var result = await userManeger.CreateAsync(user, "P@ssword1");
+                var result = await userManeger.CreateAsync(user, "12345678");
                 if (result.Succeeded)
                 {
                     await userManeger.AddToRoleAsync(user, "NotAdministrator");
@@ -52,7 +52,7 @@ namespace UserAPI.Data
             {
                 var role = new IdentityRole
                 {
-                    Name = "Admin"
+                    Name = "Administrator"
                 };
                 await roleManeger.CreateAsync(role);
             }
@@ -61,7 +61,7 @@ namespace UserAPI.Data
             {
                 var role = new IdentityRole
                 {
-                    Name = "NotAdmin"
+                    Name = "NotAdministrator"
                 };
                 await roleManeger.CreateAsync(role);
             }

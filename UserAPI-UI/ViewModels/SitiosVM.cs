@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 
 namespace UserAPI_UI.ViewModels
 {
-    public class Puestos
+    public class SitiosVM
     {
-        public int  Id { get; set; }
+        public int Id { get; set; }
         public string Nombre { get; set; }
         public string Clave { get; set; }
+        public IList<DepartamentoVM> ListDepartamentos { get; set; }
     }
 }

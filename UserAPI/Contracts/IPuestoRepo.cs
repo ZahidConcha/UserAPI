@@ -6,7 +6,7 @@ using UserAPI.Modals;
 
 namespace UserAPI.Contracts
 {
-    public interface IPuestoRepo : IRepoBase<Puesto>
+    public interface IPuestoRepo : IRepoBase<Puestos>
     {
     }
 }

@@ -10,8 +10,8 @@ using UserAPI.Data;
 namespace UserAPI.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200713175926_Initial")]
-    partial class Initial
+    [Migration("20200715152402_Estructuras-Empleado")]
+    partial class EstructurasEmpleado
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -84,10 +84,6 @@ namespace UserAPI.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
@@ -139,8 +135,6 @@ namespace UserAPI.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -227,7 +221,7 @@ namespace UserAPI.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("UserAPI.Modals.Departamento", b =>
+            modelBuilder.Entity("UserAPI.Modals.Departamentos", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -235,19 +229,48 @@ namespace UserAPI.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Clave")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Nombre")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SitioId")
-                        .HasColumnType("int");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SitioId");
-
                     b.ToTable("TDepartamentos");
+                });
+
+            modelBuilder.Entity("UserAPI.Modals.Empleado", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<int>("EstructuraId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NombreCompleto")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("RFC")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TEmpleados");
                 });
 
             modelBuilder.Entity("UserAPI.Modals.Estructura", b =>
@@ -257,12 +280,37 @@ namespace UserAPI.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("DepartamentoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmpleadoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
+
+                    b.Property<int>("PuestoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SitioId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("TEstructura");
+                    b.HasIndex("DepartamentoId");
+
+                    b.HasIndex("EmpleadoId");
+
+                    b.HasIndex("PuestoId");
+
+                    b.HasIndex("SitioId");
+
+                    b.ToTable("TEstructuras");
                 });
 
-            modelBuilder.Entity("UserAPI.Modals.Puesto", b =>
+            modelBuilder.Entity("UserAPI.Modals.Puestos", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -270,20 +318,16 @@ namespace UserAPI.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Clave")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("DepartamentoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DepartamentosId")
-                        .HasColumnType("int");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Nombre")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DepartamentoId");
 
                     b.ToTable("TPuestos");
                 });
@@ -304,19 +348,6 @@ namespace UserAPI.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TSitios");
-                });
-
-            modelBuilder.Entity("UserAPI.Modals.Empleado", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<string>("NombreCompleto")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RFC")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("Empleado");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -370,20 +401,31 @@ namespace UserAPI.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("UserAPI.Modals.Departamento", b =>
+            modelBuilder.Entity("UserAPI.Modals.Estructura", b =>
                 {
-                    b.HasOne("UserAPI.Modals.Sitios", "Sitios")
-                        .WithMany("ListDepartamentos")
+                    b.HasOne("UserAPI.Modals.Departamentos", "Departamento")
+                        .WithMany()
+                        .HasForeignKey("DepartamentoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("UserAPI.Modals.Empleado", "Empleado")
+                        .WithMany("EstructurasList")
+                        .HasForeignKey("EmpleadoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("UserAPI.Modals.Puestos", "Puesto")
+                        .WithMany()
+                        .HasForeignKey("PuestoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("UserAPI.Modals.Sitios", "Sitio")
+                        .WithMany()
                         .HasForeignKey("SitioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("UserAPI.Modals.Puesto", b =>
-                {
-                    b.HasOne("UserAPI.Modals.Departamento", null)
-                        .WithMany("ListPuesto")
-                        .HasForeignKey("DepartamentoId");
                 });
 #pragma warning restore 612, 618
         }

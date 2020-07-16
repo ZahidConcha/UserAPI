@@ -11,14 +11,12 @@ namespace UserAPI.DTOs
         public string Nombre { get; set; }
         public string Clave { get; set; }
         
-
     }
     public class SitiosCreateDTO
     {
-        
+       
         public string Nombre { get; set; }
         public string Clave { get; set; }
-        
 
     }
 }

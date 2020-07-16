@@ -39,7 +39,6 @@ namespace UserAPI.Controller
             {
                 logger.LogInfo($"{location} Attempted Get Request");
                 var puestos = await puestoRepo.FindAll();
-                
                 if (puestos == null)
                 {
                     logger.LogWarn($"{location} Faild to Get Data");
@@ -97,7 +96,7 @@ namespace UserAPI.Controller
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> Createpuesto([FromBody] PuestoCreateDTO puesto)
+        public async Task<IActionResult> Createpuesto([FromBody] PuestosCreateDTO puesto)
         {
             var location = GetControllerActionNames();
             try
@@ -113,7 +112,7 @@ namespace UserAPI.Controller
                     logger.LogWarn($"{location} Data invalid");
                     return BadRequest(puesto);
                 }
-                var puestoInfo = mapper.Map<Puesto>(puesto);
+                var puestoInfo = mapper.Map<Puestos>(puesto);
                 var isSuccess = await puestoRepo.Create(puestoInfo);
                 if (!isSuccess)
                 {
@@ -158,7 +157,7 @@ namespace UserAPI.Controller
                     return BadRequest(ModelState);
                 }
                 logger.LogInfo($"{location} Found Id{id}");
-                var puestoInfo = mapper.Map<Puesto>(puesto);
+                var puestoInfo = mapper.Map<Puestos>(puesto);
                 var isSuccess = await puestoRepo.Update(puestoInfo);
                 if (!isSuccess)
                 {

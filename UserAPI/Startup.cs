@@ -19,10 +19,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using UserAPI.Contracts;
-
+using UserAPI.Services;
 using AutoMapper;
 using UserAPI.Mappings;
-using UserAPI.Services;
 
 namespace UserAPI
 {
@@ -38,7 +37,7 @@ namespace UserAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(options =>options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))/*.UseLazyLoadingProxies()*/);
             services.AddDefaultIdentity<IdentityUser>().AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -103,6 +102,7 @@ namespace UserAPI
             services.AddScoped<IDepartamentoRepo, DepartamentoRepo>();
             services.AddScoped<IPuestoRepo, PuestosRepo>();
             services.AddScoped<ISitiosRepo, SitiosRepo>();
+            services.AddScoped<IEstructuraRepo, EstructuraRepo>();
        
 
             services.AddControllers();
@@ -136,7 +136,7 @@ namespace UserAPI
 
             app.UseCors("CorsPolicy");
 
-            //SeededData.Seed(userManager, roleManager).Wait();
+            SeededData.Seed(userManager, roleManager).Wait();
 
             app.UseHttpsRedirection();
           

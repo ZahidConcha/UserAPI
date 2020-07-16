@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
+using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
@@ -11,7 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Syncfusion.Blazor;
 using UserAPI_UI.Contractas;
-using UserAPI_UI.Pages;
+using UserAPI_UI.Providers;
 using UserAPI_UI.Services;
 
 namespace UserAPI_UI
@@ -32,10 +35,17 @@ namespace UserAPI_UI
             services.AddSyncfusionBlazor();
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddBlazoredLocalStorage();
             services.AddHttpClient();
+            services.AddScoped<APIAuthenticationStateProvider>();
+            services.AddScoped<AuthenticationStateProvider>(p =>p.GetRequiredService<APIAuthenticationStateProvider>());
+            services.AddScoped<JwtSecurityTokenHandler>();
+            services.AddTransient<IAuthenticationRepo, AuthenticationRepo>();
             services.AddTransient<IEmpleadoRepo, EmpleadoRepo>();
-            services.AddTransient<IPuestoRepo, PuestoRepo>(); 
-
+            services.AddTransient<IPuestoRepo, PuestoRepo>();
+            services.AddTransient<IDepartamentoRepo, DepartamentoRepo>();
+            services.AddTransient<ISitiosRepo, SitiosRepo>();
+            services.AddTransient<IEstructuraRepo, EstructuraRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -23,11 +23,31 @@
     <Compile Remove="Data\Migrations\20200709212509_Sitios.Designer.cs" />
     <Compile Remove="Data\Migrations\20200709215252_sitios-Departamentos-Relacion.cs" />
     <Compile Remove="Data\Migrations\20200709215252_sitios-Departamentos-Relacion.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200715002037_Estructuras.cs" />
+    <Compile Remove="Data\Migrations\20200715002037_Estructuras.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200715032246_EstructuraRelationships.cs" />
+    <Compile Remove="Data\Migrations\20200715032246_EstructuraRelationships.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200715145406_Estructuras-Empleado-Relat.cs" />
+    <Compile Remove="Data\Migrations\20200715145406_Estructuras-Empleado-Relat.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200715145534_Estructuras-Empleado.cs" />
+    <Compile Remove="Data\Migrations\20200715145534_Estructuras-Empleado.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200715145817_Estructuras-Empleado.cs" />
+    <Compile Remove="Data\Migrations\20200715145817_Estructuras-Empleado.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200715150058_Estructuras-Empleado.cs" />
+    <Compile Remove="Data\Migrations\20200715150058_Estructuras-Empleado.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200715150335_Estructuras-Empleado.cs" />
+    <Compile Remove="Data\Migrations\20200715150335_Estructuras-Empleado.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200715151118_Estructuras-Empleado.cs" />
+    <Compile Remove="Data\Migrations\20200715151118_Estructuras-Empleado.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200715151355_Estructuras-Empleado.cs" />
+    <Compile Remove="Data\Migrations\20200715151355_Estructuras-Empleado.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200715151712_Estructuras-Empleado.cs" />
+    <Compile Remove="Data\Migrations\20200715151712_Estructuras-Empleado.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.0.0" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.5" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.5" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.5" />

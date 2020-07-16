@@ -52,7 +52,7 @@
             <param name="id"> Worker Id</param>
             <returns>Information of the worker with the same Id</returns>
         </member>
-        <member name="M:UserAPI.Controller.EmpleadosController.CreateEmpleado(UserAPI.DTOs.EmpleadosDTO)">
+        <member name="M:UserAPI.Controller.EmpleadosController.CreateEmpleado(UserAPI.DTOs.EmpleadoCreateDTO)">
             <summary>
             Creates New Worker 
             </summary>
@@ -74,6 +74,13 @@
             <param name="id">Recives a id</param>
             <returns> 202 no content</returns>
         </member>
+        <member name="M:UserAPI.Controller.EstructuraController.GetById(System.Int32)">
+            <summary>
+            Gets a workstation by id
+            </summary>
+            <param name="id"> Worker Id</param>
+            <returns>Information of the worker with the same Id</returns>
+        </member>
         <member name="M:UserAPI.Controller.PuestosController.Getpuestos">
             <summary>
             Gets all the workers Information
@@ -87,7 +94,7 @@
             <param name="id"> Worker Id</param>
             <returns>Information of the worker with the same Id</returns>
         </member>
-        <member name="M:UserAPI.Controller.PuestosController.Createpuesto(UserAPI.DTOs.PuestoCreateDTO)">
+        <member name="M:UserAPI.Controller.PuestosController.Createpuesto(UserAPI.DTOs.PuestosCreateDTO)">
             <summary>
             Creates New Worker 
             </summary>
@@ -122,7 +129,7 @@
             <param name="userDTO"></param>
             <returns></returns>
         </member>
-        <member name="M:UserAPI.Controller.UsersController.Register(UserAPI.DTOs.UserDTO)">
+        <member name="M:UserAPI.Controller.UsersController.RegisterAdmin(UserAPI.DTOs.UserDTO)">
             <summary>
             creates a new user
             </summary>

@@ -15,5 +15,15 @@ namespace UserAPI.DTOs
         [Required]
         [EmailAddress]
         public string Email { get; set; }
+        public int EstructuraId { get; set; }
+    }
+    public class EmpleadoCreateDTO
+    {
+        public string NombreCompleto { get; set; }
+        public string RFC { get; set; }
+        public string Email { get; set; }
+
+
+
     }
 }

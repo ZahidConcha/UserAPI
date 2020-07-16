@@ -1,0 +1,33 @@
+﻿@page "/puestos/"
+@inject IPuestoRepo puestoRepo
+
+    <SfGrid DataSource="Model" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
+        <GridPageSettings PageSize="5"></GridPageSettings>
+        <GridColumns>
+            <GridColumn Field="@nameof(PuestoVM.Id)"
+                        HeaderText="ID"
+                        TextAlign="TextAlign.Center"
+                        Width="120">
+            </GridColumn>
+            <GridColumn Field="@nameof(PuestoVM.Nombre)"
+                        HeaderText="Nombre Puesto de trabajo"
+                        TextAlign="TextAlign.Center"
+                        Width="120">
+            </GridColumn>
+            <GridColumn Field="@nameof(PuestoVM.Clave)"
+                        HeaderText="Clave de Puesto de trabajo"
+                        TextAlign="TextAlign.Center"
+                        Width="120">
+            </GridColumn>
+        </GridColumns>
+    </SfGrid>
+
+@code {
+    private IList<PuestoVM> Model;
+
+
+    protected async override Task OnInitializedAsync()
+    {
+        Model = await puestoRepo.GetAll(EndPoints.PuuestosEndPoint);
+    }
+}

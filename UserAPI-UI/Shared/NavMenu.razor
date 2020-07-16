@@ -7,21 +7,64 @@
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="departamentos">
-                <span class="oi oi-plus" aria-hidden="true"></span> Departamentos
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="puestos">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Puestos
-            </NavLink>
-        </li>
+        <AuthorizeView>
+            <Authorized>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                        <span class="oi oi-person" aria-hidden="true"></span> @context.User.Identity.Name
+                    </NavLink>
+                </li>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="logout">
+                        <span class="oi oi-arrow-circle-left" aria-hidden="true"></span> Logout
+
+                    </NavLink>
+                </li>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="departamentos/">
+                        <span class="oi oi-paperclip" aria-hidden="true"></span> Departamentos
+                    </NavLink>
+                </li>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="puestos/">
+                        <span class="oi oi-share" aria-hidden="true"></span> Puestos
+                    </NavLink>
+                </li>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="sitios/">
+                        <span class="oi oi-map" aria-hidden="true"></span> Sitios
+                    </NavLink>
+                </li>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="estructura/">
+                        <span class="oi oi-ellipses" aria-hidden="true"></span> Estructuras
+                    </NavLink>
+                </li>
+            </Authorized>
+            <NotAuthorized>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="register">
+                        <span class="oi oi-plus" aria-hidden="true"></span> Register
+
+                    </NavLink>
+                </li>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="/login">
+                        <span class="oi oi-account-login" aria-hidden="true"></span> Login
+
+                    </NavLink>
+                </li>
+            </NotAuthorized>
+        </AuthorizeView>
+
+        <AuthorizeView Roles="Administrator">
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="/register/admin">
+                    <span class="oi oi-plus" aria-hidden="true"></span> Register Admin
+                </NavLink>
+            </li>
+        </AuthorizeView>
+
     </ul>
 </div>
 

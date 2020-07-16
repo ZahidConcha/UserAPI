@@ -17,13 +17,13 @@ namespace UserAPI.Services
         {
             this.context = context;
         }
-        public async Task<bool> Create(Departamento entity)
+        public async Task<bool> Create(Departamentos entity)
         {
             await context.TDepartamentos.AddAsync(entity);
             return await Save();
         }
 
-        public async Task<bool> Delete(Departamento entity)
+        public async Task<bool> Delete(Departamentos entity)
         {
             context.TDepartamentos.Remove(entity);
             return await Save();
@@ -34,15 +34,17 @@ namespace UserAPI.Services
             return await context.TDepartamentos.AnyAsync(c => c.Id == id);
         }
 
-        public async Task<IList<Departamento>> FindAll()
+        public async Task<IList<Departamentos>> FindAll()
         {
-            var departamentos = await context.TDepartamentos.Include(q => q.ListPuesto).ToListAsync();
+            //var departamentos = await context.TDepartamentos.Include(q => q.ListPuesto).ToListAsync();
+            var departamentos = await context.TDepartamentos.ToListAsync();
             return departamentos;
         }
 
-        public async Task<Departamento> FindById(int Id)
+        public async Task<Departamentos> FindById(int Id)
         {
-            var departamento = await context.TDepartamentos.Include(q=>q.ListPuesto).FirstOrDefaultAsync(c => c.Id == Id);
+            //var departamento = await context.TDepartamentos.Include(q=>q.ListPuesto).FirstOrDefaultAsync(c => c.Id == Id);
+            var departamento = await context.TDepartamentos.FirstOrDefaultAsync(c => c.Id == Id);
             return departamento;
         }
 
@@ -52,7 +54,7 @@ namespace UserAPI.Services
             return changes > 0;
         }
 
-        public async Task<bool> Update(Departamento entity)
+        public async Task<bool> Update(Departamentos entity)
         {
             context.TDepartamentos.Update(entity);
             return await Save();

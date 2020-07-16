@@ -1,0 +1,44 @@
+﻿@page "/estructura/"
+@inject IEstructuraRepo estructuraRepo
+
+    <SfGrid DataSource="Model" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
+        <GridPageSettings PageSize="5"></GridPageSettings>
+        <GridColumns>
+            <GridColumn Field="@nameof(EstructuraVM.Id)"
+                        HeaderText="ID"
+                        TextAlign="TextAlign.Center"
+                        Width="120">
+            </GridColumn>
+            <GridColumn Field="@nameof(EstructuraVM.Nombre)"
+                        HeaderText="Nombre Estructura"
+                        TextAlign="TextAlign.Center"
+                        Width="120">
+            </GridColumn>
+            <GridColumn Field="@nameof(EstructuraVM.SitioId)"
+                        HeaderText="Localidad"
+                        TextAlign="TextAlign.Center"
+                        Width="120">
+            </GridColumn>
+            <GridColumn Field="@nameof(EstructuraVM.DepartamentoId)"
+                        HeaderText="Departamento"
+                        TextAlign="TextAlign.Center"
+                        Width="120">
+            </GridColumn>
+            <GridColumn Field="@nameof(EstructuraVM.PuestoId)"
+                        HeaderText="Puesto de trabajo"
+                        TextAlign="TextAlign.Center"
+                        Width="120">
+            </GridColumn>
+        </GridColumns>
+    </SfGrid>
+
+@code {
+    private IList<EstructuraVM> Model;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Model = await estructuraRepo.GetAll(EndPoints.EstrucutraEndPoint);
+    }
+
+
+}

@@ -102,7 +102,7 @@ namespace UserAPI.Controller
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> CreateEmpleado([FromBody] EmpleadosDTO empleado)
+        public async Task<IActionResult> CreateEmpleado([FromBody] EmpleadoCreateDTO empleado)
         {
             var location = GetControllerActionNames();
             try
@@ -152,7 +152,6 @@ namespace UserAPI.Controller
             try
             {
                 logger.LogInfo($"{location} Update Attempt");
-               
                 if (id < 1 || empleado == null || id != empleado.Id)
                 {
                     logger.LogWarn($"{location} Faild to Find or Invalid Id{id}");

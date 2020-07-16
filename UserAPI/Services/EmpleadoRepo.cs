@@ -32,20 +32,18 @@ namespace UserAPI.Services
 
         public async Task<bool> Exsists(int id)
         {
-            
             return await context.TEmpleados.AnyAsync(c => c.Id == id);
         }
 
         public async Task<IList<Empleado>> FindAll()
         {
-            var empleados = await context.TEmpleados.ToListAsync();
+            var empleados = await context.TEmpleados.Include(q => q.EstructurasList).ToListAsync();
             return empleados;
         }
 
-        public async Task<Empleado> FindById(int id)
+        public async Task<Empleado> FindById(int Id)
         {
-         
-            var empleado = await context.TEmpleados.FirstAsync(c => c.Id == id);
+            var empleado = await context.TEmpleados.FirstAsync(c => c.Id == Id);
             return empleado;
         }
 

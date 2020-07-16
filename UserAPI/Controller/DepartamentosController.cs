@@ -112,7 +112,7 @@ namespace UserAPI.Controller
                     logger.LogWarn($"{location} Data invalid");
                     return BadRequest(departamento);
                 }
-                var departamentoInfo = mapper.Map<Departamento>(departamento);
+                var departamentoInfo = mapper.Map<Departamentos>(departamento);
                 var isSuccess = await departamentoRepo.Create(departamentoInfo);
                 if (!isSuccess)
                 {
@@ -157,7 +157,7 @@ namespace UserAPI.Controller
                     return BadRequest(ModelState);
                 }
                 logger.LogInfo($"{location} Found Id{id}");
-                var departamentoInfo = mapper.Map<Departamento>(departamentos);
+                var departamentoInfo = mapper.Map<Departamentos>(departamentos);
                 var isSuccess = await departamentoRepo.Update(departamentoInfo);
                 if (!isSuccess)
                 {

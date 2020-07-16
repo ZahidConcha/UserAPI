@@ -1,0 +1,31 @@
+﻿@page "/sitios/"
+@inject ISitiosRepo sitiosRepo
+
+    <SfGrid DataSource="Model" AllowPaging="true" AllowSorting="true" AllowFiltering="true">
+        <GridPageSettings PageSize="5"></GridPageSettings>
+        <GridColumns>
+            <GridColumn Field="@nameof(SitiosVM.Id)"
+                        HeaderText="ID"
+                        TextAlign="TextAlign.Center"
+                        Width="120">
+            </GridColumn>
+            <GridColumn Field="@nameof(SitiosVM.Nombre)"
+                        HeaderText="Localidad"
+                        TextAlign="TextAlign.Center"
+                        Width="120">
+            </GridColumn>
+            <GridColumn Field="@nameof(SitiosVM.Clave)"
+                        HeaderText="Clave de Localidad"
+                        TextAlign="TextAlign.Center"
+                        Width="120">
+            </GridColumn>
+        </GridColumns>
+    </SfGrid>
+
+@code {
+    private IList<SitiosVM> Model;
+    protected async override Task OnInitializedAsync()
+    {
+        Model = await sitiosRepo.GetAll(EndPoints.SitiosEndPoint);
+    }
+}
